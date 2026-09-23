@@ -1,1 +1,124 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqUtEw.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v18/UcCo3FwrK3iLTcviYwY.woff2")
+    format("woff2");
+}
+
+@theme {
+  /* Colors */
+  --color-white: #ffffff;
+  --color-surface: #f4f6f8;
+  --color-primary: #0e1116;
+  --color-muted: #5b6472;
+  --color-lime: #c6f432;
+  --color-lime-hover: #b8e52e;
+  --color-blue: #3d4bff;
+  --color-blue-hover: #2d3bef;
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(14, 17, 22, 0.08);
+  --color-border: rgba(14, 17, 22, 0.08);
+  --color-danger: #e5484d;
+  --color-success: #30a46c;
+  --color-warning: #f5a623;
+
+  /* Fonts */
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Border Radius */
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  --radius-input: 12px;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+}
+
+/* Base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--color-primary);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Label utility */
+.label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Glass panel utility */
+.glass {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+}
+
+/* Focus ring */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-glass-border);
+  border-radius: var(--radius-pill);
+}
