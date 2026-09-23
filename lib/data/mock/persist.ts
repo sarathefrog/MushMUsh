@@ -18,23 +18,35 @@ function ensureDir() {
 }
 
 function readDB(): MockDB {
-  ensureDir();
-  if (!fs.existsSync(DB_PATH)) {
-    // Initialize with seed data
-    const initial: MockDB = {
+  try {
+    ensureDir();
+    if (!fs.existsSync(DB_PATH)) {
+      // Initialize with seed data
+      const initial: MockDB = {
+        orders: seedOrders,
+        users: seedUsers,
+      };
+      try { fs.writeFileSync(DB_PATH, JSON.stringify(initial, null, 2)); } catch (e) {}
+      return initial;
+    }
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    return JSON.parse(raw) as MockDB;
+  } catch (err) {
+    // Vercel fallback: read-only filesystem or missing file
+    return {
       orders: seedOrders,
       users: seedUsers,
     };
-    fs.writeFileSync(DB_PATH, JSON.stringify(initial, null, 2));
-    return initial;
   }
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
-  return JSON.parse(raw) as MockDB;
 }
 
 function writeDB(db: MockDB) {
-  ensureDir();
-  fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
+  try {
+    ensureDir();
+    fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2));
+  } catch (err) {
+    // Ignore write errors on read-only file systems
+  }
 }
 
 /** Singleton in-memory cache, synced to disk on mutations */
